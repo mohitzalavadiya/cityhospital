@@ -6,6 +6,7 @@ import Contact from "./container/departments/Contact";
 import Departments from "./container/departments/Departments";
 import Doctors from "./container/departments/Doctors";
 import Home from "./container/home/Home";
+import Login from "./container/Login";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path="/doctors" exact component={Doctors}/>
       <Route path ="/about" exact component={About}/>
       <Route path = "/contact" exact component={Contact}/>
+      <Route path ="/login" exact component={Login}/>
     </Switch>
 
     <Footer/>
