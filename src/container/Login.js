@@ -9,7 +9,7 @@ function Login(props) {
         <section id="appointment" className="appointment">
   <div className="container">
     <div className="section-title">
-        {   reset === true ? 
+        {   reset ? 
             <h2>
                 forget password
             </h2>
@@ -23,21 +23,29 @@ function Login(props) {
       
     </div>
     <div action method="post" role="form" className="php-email-form">
-        {
+        
             
-            login === "Login" ?
             
-            :
-            <div className="row">
+            {
+              reset ?
+              null
+              :
+              login === "Login" ?
+              null
+              :
+              <div className="row">
             <div className="col-md-4 form-group">
               <input type="text" name="name" className="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
               <div className="validate" />
             </div>
             </div>
-
-        }
-        {
-            reset === true ?
+            
+            }
+          
+            
+         
+          {
+            reset ?
             <div className="row">
             <div className="col-md-4 form-group mt-3 mt-md-0">
               <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
@@ -47,20 +55,25 @@ function Login(props) {
             :
             <div>
             <div className="row">
-        <div className="col-md-4 form-group mt-3 mt-md-0">
-          <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
-          <div className="validate" />
-        </div>
-        </div>
-        <div className="row">
-        <div className="col-md-4 form-group mt-3 mt-md-0">
-          <input type="password" className="form-control" name="password" id="password" placeholder="Your password" />
-          <div className="validate" />
-        </div>
-        </div>
-        </div>
+            <div className="col-md-4 form-group mt-3 mt-md-0">
+              <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+              <div className="validate" />
+            </div>
+            </div>
+            <div className="row">
+            <div className="col-md-4 form-group mt-3 mt-md-0">
+              <input type="password" className="form-control" name="password" id="password" placeholder="Your password" />
+              <div className="validate" />
+            </div>
+            </div>
+            </div>
 
-        }
+          }
+            
+           
+       
+
+        
       
         {/* <div className="row">
         <div className="col-md-4 form-group mt-3 mt-md-0">
@@ -78,20 +91,23 @@ function Login(props) {
             
             login === "Login" ? 
             <div>
-            Create a new account  <button onClick={() => {setLogin("signup")}}>Signup</button>
+            Create a new account  <button onClick={() => {setLogin("signup"); setReset(false)}}>Signup</button>
             <br></br>
-           <button onClick={()=> {setReset(true)}}>forget password</button>
+           
             </div>
             :
             <div>
-            Already have an account  <button onClick={() => {setLogin("Login")}}>Login</button>
+            Already have an account  <button onClick={() => {setLogin("Login"); setReset(false)}}>Login</button>
             
             </div>
 
         }
+        <button onClick={()=> {setReset(true)}}>forget password</button>
        
-      
         {
+          reset ?
+          <div className="text-center"><button type="submit">submit</button></div>
+          :
             login === "Login" ?
             <div className="text-center"><button type="submit">Login</button></div>
             :
