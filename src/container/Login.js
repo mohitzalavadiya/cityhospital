@@ -23,8 +23,6 @@ function Login(props) {
       
     </div>
     <div action method="post" role="form" className="php-email-form">
-        
-            
             
             {
               reset ?
@@ -39,11 +37,7 @@ function Login(props) {
               <div className="validate" />
             </div>
             </div>
-            
             }
-          
-            
-         
           {
             reset ?
             <div className="row">
