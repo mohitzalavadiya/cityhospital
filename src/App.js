@@ -1,6 +1,7 @@
 import { Route, Switch } from "react-router-dom";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import Refhook from "./components/Refexample/Refhook";
 import About from "./container/departments/About";
 import Contact from "./container/departments/Contact";
 import Departments from "./container/departments/Departments";
@@ -22,6 +23,7 @@ function App() {
       <Route path = "/contact" exact component={Contact}/>
       <Route path ="/login" exact component={Login}/>
       <Route path ="/medicine" exact component={Medicine}/>
+      <Route path= "/refhook" exact component={Refhook}/>
     </Switch>
 
     <Footer/>

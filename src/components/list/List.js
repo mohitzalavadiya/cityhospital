@@ -3,7 +3,8 @@ import { Card, CardBody, CardTitle, CardSubtitle, CardText, Button  } from 'reac
 
 function List({ data, id }) {
     return (
-        <div>
+        <div className=''>
+             <div className='col-3'>
             {
                 data.map((o, i) => {
                     return (
@@ -31,6 +32,8 @@ function List({ data, id }) {
                 })
             }
         </div>
+        </div>
+       
     );
 }
 
