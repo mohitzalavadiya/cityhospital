@@ -7,23 +7,41 @@ function Login(props) {
 
   const [reset, setReset] = useState(false)
 
-  let schema = yup.object().shape({
-    email: yup.string().required("please enter your email id").email("please enter valid email id"),
-    password: yup.string().required("please enter password"),
-  });
+  let schemaobj, intival;
 
-  const formikobj = useFormik({
-    initialValues: {
+  if(login === "Login"){
+    schemaobj = {
+      email: yup.string().required("please enter your email id").email("please enter valid email id"),
+      password: yup.string().required("please enter password")
+    }
+    intival =  {
       email: '',
       password: ''
-    },
+    }
+  }else if(login === "signup"){
+    schemaobj = {
+      name : yup.string().required("please enter your name"),
+      email: yup.string().required("please enter your email id").email("please enter valid email id"),
+      password: yup.string().required("please enter password")
+    }
+    intival =  {
+      name : '',
+      email: '',
+      password: ''
+    }
+  }
+
+  let schema = yup.object().shape(schemaobj);
+
+  const formikobj = useFormik({
+    initialValues:intival,
     validationSchema: schema,
     onSubmit: values => {
       alert(JSON.stringify(values, null, 2));
     },
   });
 
-  const { handleSubmit, handleChange, errors } = formikobj
+  const { handleSubmit, handleChange, errors, handleBlur, touched } = formikobj
 
 
   return (
@@ -55,15 +73,16 @@ function Login(props) {
                   :
                   <div className="row">
                     <div className="col-md-4 form-group">
-                      <input type="text" name="name" className="form-control" id="name" placeholder="Your Name" />
+                      <input type="text" name="name" className="form-control" id="name" placeholder="Your Name" onChange={handleChange} onBlur={handleBlur}/>
+                      <p>{errors.name && touched.name ? errors.name : ''}</p>
 
                     </div>
                   </div>
             }
             <div className="row">
               <div className="col-md-4 form-group mt-3 mt-md-0">
-                <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" onChange={handleChange}/>
-                <p>{errors.email}</p>
+                <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" onChange={handleChange} onBlur={handleBlur}/>
+                <p>{errors.email && touched.email ? errors.email : ''}</p>
 
               </div>
             </div>
@@ -74,8 +93,8 @@ function Login(props) {
                 :
                 <div className="row">
                   <div className="col-md-4 form-group mt-3 mt-md-0">
-                    <input type="password" className="form-control" name="password" id="password" placeholder="Your password" onChange={handleChange}/>
-                  <p>{errors.password}</p>
+                    <input type="password" className="form-control" name="password" id="password" placeholder="Your password" onChange={handleChange} onBlur={handleBlur}/>
+                  <p>{errors.password && touched.password ? errors.password : ''}</p>
                   </div>
                 </div>
 
@@ -83,16 +102,16 @@ function Login(props) {
             {
               login === "Login" ?
                 <div>
-                  Create a new account  <button onClick={() => { setLogin("signup"); setReset(false) }}>Signup</button>
+                  Create a new account  <button type='button' onClick={() => { setLogin("signup"); setReset(false) }}>Signup</button>
                   <br></br>
 
                 </div>
                 :
                 <div>
-                  Already have an account  <button onClick={() => { setLogin("Login"); setReset(false) }}>Login</button>
+                  Already have an account  <button type='button' onClick={() => { setLogin("Login"); setReset(false) }}>Login</button>
                 </div>
             }
-            <button onClick={() => { setReset(true) }}>forget password</button>
+            <button type='button' onClick={() => { setReset(true) }}>forget password</button>
 
             {
               reset ?
