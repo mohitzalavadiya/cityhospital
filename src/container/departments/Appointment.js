@@ -1,5 +1,6 @@
 import React from 'react';
 import * as yup from 'yup';
+import { useFormik, Form, Formik } from 'formik';
 
 function Appointment(props) {
 
@@ -7,8 +8,26 @@ function Appointment(props) {
     let schema = yup.object().shape({
         name: yup.string().required("required"),
         email: yup.string().email("please enter valid email id").required("required"),
-        phone :yup.number().required("required")
+        phone :yup.number().required("required"),
+        date :yup.string().required("required"),
+
       });
+      const formikobj = useFormik({
+        initialValues: {
+            name: '',
+          email: '',
+          phone:'',
+          date :''
+        },
+        validationSchema: schema,
+        onSubmit: (values, action) => {
+          alert(JSON.stringify(values, null, 2));
+          action.resetForm()
+        },
+      });
+
+      const {handleBlur, handleChange, handleSubmit, errors, touched, values} = formikobj
+
 
     return (
         <main id="main">
@@ -20,25 +39,28 @@ function Appointment(props) {
                             blandit quam volutpat sollicitudin. Fusce tincidunt sit amet ex in volutpat. Donec lacinia finibus tortor.
                             Curabitur luctus eleifend odio. Phasellus placerat mi et suscipit pulvinar.</p>
                     </div>
-                    <form action method="post" role="form" className="php-email-form">
+                    <Formik values={formikobj}>
+                    <Form onSubmit={handleSubmit} className="php-email-form">
                         <div className="row">
                             <div className="col-md-4 form-group">
-                                <input type="text" name="name" className="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                                <div className="validate" />
+                                <input type="text" name="name" className="form-control" id="name" placeholder="Your Name" onChange={handleChange} value={values.name} onBlur={handleBlur}/>
+                                <p>{errors.name && touched.name ? errors.name : ''}</p>
+                                
                             </div>
                             <div className="col-md-4 form-group mt-3 mt-md-0">
-                                <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
-                                <div className="validate" />
+                                <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" onChange={handleChange} value={values.email} onBlur={handleBlur}/>
+                                <p>{errors.email && touched.email ? errors.email : ''}</p>
                             </div>
                             <div className="col-md-4 form-group mt-3 mt-md-0">
-                                <input type="tel" className="form-control" name="phone" id="phone" placeholder="Your Phone" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                                <div className="validate" />
+                                <input type="tel" className="form-control" name="phone" id="phone" placeholder="Your Phone" onChange={handleChange} value={values.phone} onBlur={handleBlur}/>
+                                <p>{errors.phone && touched.phone ? errors.phone : ''}</p>
+
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-4 form-group mt-3">
-                                <input type="datetime" name="date" className="form-control datepicker" id="date" placeholder="Appointment Date" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                                <div className="validate" />
+                                <input type="datetime" name="date" className="form-control datepicker" id="date" placeholder="Appointment Date" onChange={handleChange} value={values.date} onBlur={handleBlur}/>
+                                <p>{errors.date && touched.date ? errors.date : ''}</p>
                             </div>
                             <div className="col-md-4 form-group mt-3">
                                 <select name="department" id="department" className="form-select">
@@ -60,7 +82,8 @@ function Appointment(props) {
                             <div className="sent-message">Your appointment request has been sent successfully. Thank you!</div>
                         </div>
                         <div className="text-center"><button type="submit">Make an Appointment</button></div>
-                    </form>
+                    </Form>
+                    </Formik> 
                 </div>
             </section>
         </main>
