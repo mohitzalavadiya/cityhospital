@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import  * as yup from 'yup';
+import * as yup from 'yup';
 import { useFormik, Formik, Form } from 'formik';
 
 function Login(props) {
@@ -9,23 +9,23 @@ function Login(props) {
 
   let schemaobj, intival;
 
-  if(login === "Login"){
+  if (login === "Login") {
     schemaobj = {
-      email: yup.string().required("please enter your email id").email("please enter valid email id"),
-      password: yup.string().required("please enter password")
+      email: yup.string().required("required").email("please enter valid email id"),
+      password: yup.string().min(6, "minimum 6 character required").required("required")
     }
-    intival =  {
+    intival = {
       email: '',
       password: ''
     }
-  }else if(login === "signup"){
+  } else if (login === "signup") {
     schemaobj = {
-      name : yup.string().required("please enter your name"),
-      email: yup.string().required("please enter your email id").email("please enter valid email id"),
-      password: yup.string().required("please enter password")
+      name: yup.string().required("required"),
+      email: yup.string().required("required").email("please enter valid email id"),
+      password: yup.string().min(6, "minimum 6 character required").required("required")
     }
-    intival =  {
-      name : '',
+    intival = {
+      name: '',
       email: '',
       password: ''
     }
@@ -34,14 +34,24 @@ function Login(props) {
   let schema = yup.object().shape(schemaobj);
 
   const formikobj = useFormik({
-    initialValues:intival,
+    initialValues: intival,
     validationSchema: schema,
-    onSubmit: values => {
+
+    enableReinitialize: true,
+    onSubmit: (values, action) => {
       alert(JSON.stringify(values, null, 2));
+      action.resetForm()
     },
   });
 
-  const { handleSubmit, handleChange, errors, handleBlur, touched } = formikobj
+  const handleSubmitData = () => {
+    console.log(values);
+    formikobj.resetForm()
+    formikobj.setValues({});
+    console.log(values);
+  }
+
+  const { handleSubmit, handleChange, errors, handleBlur, touched, values } = formikobj
 
 
   return (
@@ -61,8 +71,8 @@ function Login(props) {
 
 
         </div>
-        <Formik values={formikobj}>
-          <Form onSubmit={handleSubmit} action method="post" role="form" className="php-email-form">
+        <Formik initialValues={intival} values={formikobj}>
+          <Form onSubmit={handleSubmit} className="php-email-form">
 
             {
               reset ?
@@ -73,16 +83,16 @@ function Login(props) {
                   :
                   <div className="row">
                     <div className="col-md-4 form-group">
-                      <input type="text" name="name" className="form-control" id="name" placeholder="Your Name" onChange={handleChange} onBlur={handleBlur}/>
-                      <p>{errors.name && touched.name ? errors.name : ''}</p>
+                      <input type="text" name="name" className="form-control" id="name" placeholder="Your Name" onChange={handleChange} onBlur={handleBlur} value={values.name} />
+                      <p className='text-danger'>{errors.name && touched.name ? errors.name : ''}</p>
 
                     </div>
                   </div>
             }
             <div className="row">
               <div className="col-md-4 form-group mt-3 mt-md-0">
-                <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" onChange={handleChange} onBlur={handleBlur}/>
-                <p>{errors.email && touched.email ? errors.email : ''}</p>
+                <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" onChange={handleChange} onBlur={handleBlur} value={values.email} />
+                <p className='text-danger'>{errors.email && touched.email ? errors.email : ''}</p>
 
               </div>
             </div>
@@ -93,8 +103,8 @@ function Login(props) {
                 :
                 <div className="row">
                   <div className="col-md-4 form-group mt-3 mt-md-0">
-                    <input type="password" className="form-control" name="password" id="password" placeholder="Your password" onChange={handleChange} onBlur={handleBlur}/>
-                  <p>{errors.password && touched.password ? errors.password : ''}</p>
+                    <input type="password" className="form-control" name="password" id="password" placeholder="Your password" onChange={handleChange} onBlur={handleBlur} value={values.password} />
+                    <p className='text-danger'>{errors.password && touched.password ? errors.password : ''}</p>
                   </div>
                 </div>
 

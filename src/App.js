@@ -3,6 +3,7 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Refhook from "./components/Refexample/Refhook";
 import About from "./container/departments/About";
+import Appointment from "./container/departments/Appointment";
 import Contact from "./container/departments/Contact";
 import Departments from "./container/departments/Departments";
 import Doctors from "./container/departments/Doctors";
@@ -24,6 +25,7 @@ function App() {
       <Route path ="/login" exact component={Login}/>
       <Route path ="/medicine" exact component={Medicine}/>
       <Route path= "/refhook" exact component={Refhook}/>
+      <Route path="/appointment" exact component={Appointment}/>
     </Switch>
 
     <Footer/>
