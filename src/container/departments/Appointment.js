@@ -10,7 +10,7 @@ function Appointment(props) {
         email: yup.string().email("please enter valid email id").required("required"),
         phone :yup.number().required("required"),
         date :yup.string().required("required"),
-        department : yup.string()
+        department : yup.string().required("required")
 
       });
       const formikobj = useFormik({
@@ -75,7 +75,7 @@ function Appointment(props) {
                             </div>
                         </div>
                         <div className="form-group mt-3">
-                            <textarea className="form-control" name="message" rows={5} placeholder="Message (Optional)" defaultValue={""} />
+                            <textarea className="form-control" name="message" rows={5} placeholder="Message (Optional)"/>
                             <div className="validate" />
                         </div>
                         <div className="mb-3">
