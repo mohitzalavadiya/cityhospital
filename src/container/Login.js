@@ -133,8 +133,6 @@ function Login(props) {
                   <div className="text-center"><button type="submit">Signup</button></div>
             }
 
-
-
           </Form>
         </Formik>
 
