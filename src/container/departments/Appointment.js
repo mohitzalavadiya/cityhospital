@@ -10,7 +10,7 @@ function Appointment(props) {
         email: yup.string().email("please enter valid email id").required("required"),
         phone :yup.number().required("required"),
         date :yup.string().required("required"),
-        department : yup.string().required("required")
+        department : yup.string()
 
       });
       const formikobj = useFormik({
@@ -65,11 +65,11 @@ function Appointment(props) {
                                 <p className='text-danger'>{errors.date && touched.date ? errors.date : ''}</p>
                             </div>
                             <div className="col-md-4 form-group mt-3">
-                                <select name="department" id="department" className="form-select" onChange={handleChange} onBlur={handleBlur} value={values}>
+                                <select name="department" id="department" className="form-select" onChange={handleChange} onBlur={handleBlur} value={values.department}>
                                     <option value>Select Department</option>
-                                    <option value="Department 1">Department 1</option>
-                                    <option value="Department 2">Department 2</option>
-                                    <option value="Department 3">Department 3</option>
+                                    <option >Department 1</option>
+                                    <option >Department 2</option>
+                                    <option >Department 3</option>
                                 </select>
                                <p className='text-danger'>{errors.department && touched.department ? errors.department : ''}</p>
                             </div>
