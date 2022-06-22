@@ -29,9 +29,31 @@ function Login(props) {
       email: '',
       password: ''
     }
+  } else{
+    schemaobj = {
+      email: yup.string().required("required").email("please enter valid email id")
+    }
+    intival = {
+      email: ''
+    }
   }
 
   let schema = yup.object().shape(schemaobj);
+
+const dataT = (values) => {
+  
+  let localdata = JSON.parse(localStorage.getItem('user'))
+
+  if(localdata === null){
+  localStorage.setItem('user', JSON.stringify([values]))
+  
+  }else{
+    localdata.push(values)
+  localStorage.setItem('user', JSON.stringify(localdata))
+  }
+
+
+}
 
   const formikobj = useFormik({
     initialValues: intival,
@@ -39,17 +61,19 @@ function Login(props) {
 
     enableReinitialize: true,
     onSubmit: (values, action) => {
-      alert(JSON.stringify(values, null, 2));
+      // alert(JSON.stringify(values, null, 2));
+      dataT(values);
       action.resetForm()
     },
   });
+  
 
-  const handleSubmitData = () => {
-    console.log(values);
-    formikobj.resetForm()
-    formikobj.setValues({});
-    console.log(values);
-  }
+  // const handleSubmitData = () => {
+  //   console.log(values);
+  //   formikobj.resetForm()
+  //   formikobj.setValues({});
+  //   console.log(values);
+  // }
 
   const { handleSubmit, handleChange, errors, handleBlur, touched, values } = formikobj
 
