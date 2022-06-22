@@ -9,7 +9,7 @@ function Login(props) {
 
   let schemaobj, intival;
 
-  if (login === "Login" && !reset) {
+  if (login === "Login") {
     schemaobj = {
       email: yup.string().required("required").email("please enter valid email id"),
       password: yup.string().min(6, "minimum 6 character required").required("required")
@@ -18,7 +18,7 @@ function Login(props) {
       email: '',
       password: ''
     }
-  } else if (login === "signup" && !reset) {
+  } else if (login === "signup") {
     schemaobj = {
       name: yup.string().required("required"),
       email: yup.string().required("required").email("please enter valid email id"),
@@ -31,7 +31,8 @@ function Login(props) {
     }
   }else{
     schemaobj = {
-      email: yup.string().required("required").email("please enter valid email id")
+      email: yup.string().required("required").email("please enter valid email id"),
+      password: yup.string().min(6, "minimum 6 character required").required("required")
     }
     intival = {
       email: ''
