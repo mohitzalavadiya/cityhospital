@@ -10,6 +10,7 @@ function Appointment(props) {
         email: yup.string().email("please enter valid email id").required("required"),
         phone :yup.number().required("required"),
         date :yup.string().required("required"),
+        department : yup.string().required("required")
 
       });
       const formikobj = useFormik({
@@ -17,7 +18,8 @@ function Appointment(props) {
             name: '',
           email: '',
           phone:'',
-          date :''
+          date :'',
+          department:''
         },
         validationSchema: schema,
         onSubmit: (values, action) => {
@@ -44,32 +46,32 @@ function Appointment(props) {
                         <div className="row">
                             <div className="col-md-4 form-group">
                                 <input type="text" name="name" className="form-control" id="name" placeholder="Your Name" onChange={handleChange} value={values.name} onBlur={handleBlur}/>
-                                <p>{errors.name && touched.name ? errors.name : ''}</p>
+                                <p className='text-danger'>{errors.name && touched.name ? errors.name : ''}</p>
                                 
                             </div>
                             <div className="col-md-4 form-group mt-3 mt-md-0">
                                 <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" onChange={handleChange} value={values.email} onBlur={handleBlur}/>
-                                <p>{errors.email && touched.email ? errors.email : ''}</p>
+                                <p className='text-danger'>{errors.email && touched.email ? errors.email : ''}</p>
                             </div>
                             <div className="col-md-4 form-group mt-3 mt-md-0">
                                 <input type="tel" className="form-control" name="phone" id="phone" placeholder="Your Phone" onChange={handleChange} value={values.phone} onBlur={handleBlur}/>
-                                <p>{errors.phone && touched.phone ? errors.phone : ''}</p>
+                                <p className='text-danger'>{errors.phone && touched.phone ? errors.phone : ''}</p>
 
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-4 form-group mt-3">
                                 <input type="datetime" name="date" className="form-control datepicker" id="date" placeholder="Appointment Date" onChange={handleChange} value={values.date} onBlur={handleBlur}/>
-                                <p>{errors.date && touched.date ? errors.date : ''}</p>
+                                <p className='text-danger'>{errors.date && touched.date ? errors.date : ''}</p>
                             </div>
                             <div className="col-md-4 form-group mt-3">
-                                <select name="department" id="department" className="form-select">
+                                <select name="department" id="department" className="form-select" onChange={handleChange} onBlur={handleBlur} value={values}>
                                     <option value>Select Department</option>
                                     <option value="Department 1">Department 1</option>
                                     <option value="Department 2">Department 2</option>
                                     <option value="Department 3">Department 3</option>
                                 </select>
-                                <div className="validate" />
+                               <p className='text-danger'>{errors.department && touched.department ? errors.department : ''}</p>
                             </div>
                         </div>
                         <div className="form-group mt-3">
