@@ -9,7 +9,7 @@ function Login(props) {
 
   let schemaobj, intival;
 
-  if (login === "Login") {
+  if (login === "Login" && !reset) {
     schemaobj = {
       email: yup.string().required("required").email("please enter valid email id"),
       password: yup.string().min(6, "minimum 6 character required").required("required")
@@ -18,7 +18,7 @@ function Login(props) {
       email: '',
       password: ''
     }
-  } else if (login === "signup") {
+  } else if (login === "signup" && !reset) {
     schemaobj = {
       name: yup.string().required("required"),
       email: yup.string().required("required").email("please enter valid email id"),
@@ -30,6 +30,7 @@ function Login(props) {
       password: ''
     }
   } else{
+    console.log("asdsa");
     schemaobj = {
       email: yup.string().required("required").email("please enter valid email id")
     }
@@ -51,8 +52,6 @@ const dataT = (values) => {
     localdata.push(values)
   localStorage.setItem('user', JSON.stringify(localdata))
   }
-
-
 }
 
   const formikobj = useFormik({
@@ -61,19 +60,11 @@ const dataT = (values) => {
 
     enableReinitialize: true,
     onSubmit: (values, action) => {
-      // alert(JSON.stringify(values, null, 2));
+      alert(JSON.stringify(values, null, 2));
       dataT(values);
       action.resetForm()
     },
   });
-  
-
-  // const handleSubmitData = () => {
-  //   console.log(values);
-  //   formikobj.resetForm()
-  //   formikobj.setValues({});
-  //   console.log(values);
-  // }
 
   const { handleSubmit, handleChange, errors, handleBlur, touched, values } = formikobj
 
