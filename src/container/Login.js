@@ -9,7 +9,7 @@ function Login(props) {
 
   let schemaobj, intival;
 
-  if (login === "Login") {
+  if (login === "Login" && !reset) {
     schemaobj = {
       email: yup.string().required("required").email("please enter valid email id"),
       password: yup.string().min(6, "minimum 6 character required").required("required")
@@ -18,7 +18,7 @@ function Login(props) {
       email: '',
       password: ''
     }
-  } else if (login === "signup") {
+  } else if (login === "signup" && !reset) {
     schemaobj = {
       name: yup.string().required("required"),
       email: yup.string().required("required").email("please enter valid email id"),
@@ -28,6 +28,13 @@ function Login(props) {
       name: '',
       email: '',
       password: ''
+    }
+  }else{
+    schemaobj = {
+      email: yup.string().required("required").email("please enter valid email id")
+    }
+    intival = {
+      email: ''
     }
   }
 
@@ -132,6 +139,8 @@ function Login(props) {
                   :
                   <div className="text-center"><button type="submit">Signup</button></div>
             }
+
+
 
           </Form>
         </Formik>
