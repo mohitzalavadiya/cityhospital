@@ -9,6 +9,8 @@ function Login(props) {
 
   let schemaobj, intival;
 
+  
+
   if(login === "Login"){
     schemaobj = {
       email: yup.string().required("please enter your email id").email("please enter valid email id"),
@@ -74,7 +76,7 @@ function Login(props) {
                   <div className="row">
                     <div className="col-md-4 form-group">
                       <input type="text" name="name" className="form-control" id="name" placeholder="Your Name" onChange={handleChange} onBlur={handleBlur}/>
-                      <p>{errors.name && touched.name ? errors.name : ''}</p>
+                      <p className='text-danger'>{errors.name && touched.name ? errors.name : ''}</p>
 
                     </div>
                   </div>
@@ -82,7 +84,7 @@ function Login(props) {
             <div className="row">
               <div className="col-md-4 form-group mt-3 mt-md-0">
                 <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" onChange={handleChange} onBlur={handleBlur}/>
-                <p>{errors.email && touched.email ? errors.email : ''}</p>
+                <p className='text-danger'>{errors.email && touched.email ? errors.email : ''}</p>
 
               </div>
             </div>
@@ -94,7 +96,7 @@ function Login(props) {
                 <div className="row">
                   <div className="col-md-4 form-group mt-3 mt-md-0">
                     <input type="password" className="form-control" name="password" id="password" placeholder="Your password" onChange={handleChange} onBlur={handleBlur}/>
-                  <p>{errors.password && touched.password ? errors.password : ''}</p>
+                  <p className='text-danger'>{errors.password && touched.password ? errors.password : ''}</p>
                   </div>
                 </div>
 
