@@ -60,7 +60,7 @@ const dataT = (values) => {
 
     enableReinitialize: true,
     onSubmit: (values, action) => {
-      alert(JSON.stringify(values, null, 2));
+      // alert(JSON.stringify(values, null, 2));
       dataT(values);
       action.resetForm()
     },
