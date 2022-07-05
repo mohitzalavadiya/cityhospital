@@ -1,10 +1,10 @@
 import React from 'react';
 import * as yup from 'yup';
 import { useFormik, Form, Formik } from 'formik';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 
 function Appointment(props) {
-
+    const history = useHistory()
    const DataInsert = (values) => {
         const localdata = JSON.parse(localStorage.getItem('Apt'))
 
@@ -46,7 +46,9 @@ function Appointment(props) {
         validationSchema: schema,
         onSubmit: (values, action) => {
             DataInsert(values)
+            history.push("/list")
             action.resetForm()
+            
         },
     });
 
