@@ -20,7 +20,7 @@ function Appointment(props) {
             localdata.push(data)
             localStorage.setItem('Apt',JSON.stringify(localdata))
         }
-
+        history.push("/list")
         console.log(data);
    }
 
@@ -46,7 +46,6 @@ function Appointment(props) {
         validationSchema: schema,
         onSubmit: (values, action) => {
             DataInsert(values)
-            history.push("/list")
             action.resetForm()
             
         },
