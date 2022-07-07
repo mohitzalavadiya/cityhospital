@@ -5,7 +5,7 @@ import { Button, Card, CardBody, CardSubtitle, CardText, CardTitle, Modal, Modal
 
 function List_Apt(props) {
     const [data, setData] = useState([])
-    const history_1 = useHistory()
+    const history = useHistory()
 
     const getdata = () => {
         const localdata = JSON.parse(localStorage.getItem('Apt'));
@@ -27,8 +27,7 @@ function List_Apt(props) {
         getdata()
     }
     const editfun = (id) => {
-        history_1.push("/appointment");
-
+        history.push("/appointment", {id: id});
     }
     return (
         <div>
@@ -41,11 +40,11 @@ function List_Apt(props) {
                         <div className='row'>
                             <div className='col-6 text-center'>
                                 <NavLink to="/appointment">
-                                    <h2> Appointment</h2></NavLink>
+                                    <h2 className='btn btn-primary' style={{backgroundColor:'#ff6337', borderColor:'#ff6337', padding:'10px 60px', fontSize:'30px'}}> Appointment</h2></NavLink>
                             </div>
                             <div className='col-6 text-center'>
                                 <NavLink to="/list">
-                                    <h3>List</h3></NavLink>
+                                    <h3 className='btn btn-primary' style={{backgroundColor:'#ff6337', borderColor:'#ff6337', padding:'10px 60px', fontSize:'26px'}}>List</h3></NavLink>
                             </div>
                         </div>
                         {
@@ -79,7 +78,7 @@ function List_Apt(props) {
                                                 <Button className='me-4 btn-success' onClick={() => editfun(l.id)}>
                                                     Edit
                                                 </Button>
-                                                <Button className='btn-success' onClick={() => deletefun(l.id)}>
+                                                <Button className='btn-danger' onClick={() => deletefun(l.id)}>
                                                     Delete
                                                 </Button>
                                             </CardBody>

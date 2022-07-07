@@ -62,7 +62,15 @@ h1, h2, h3, h4, h5, h6 {
     transform: rotate(360deg);
   }
 }
-
+/* :root{
+  --bs-primary:#ff6337;
+  --bs-primary-rgb:255, 99, 55;
+}
+.btn-primary {
+  color: #fff;
+  background-color:var(--bs-primary) ;
+  border-color: var(--bs-primary);
+} */
 /*--------------------------------------------------------------
 # Back to top button
 --------------------------------------------------------------*/

@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as yup from 'yup';
 import { useFormik, Form, Formik } from 'formik';
 import { NavLink, useHistory } from 'react-router-dom';
 
 function Appointment(props) {
+    const [update, setUpdate] = useState(false)
+
     const history = useHistory()
    const DataInsert = (values) => {
         const localdata = JSON.parse(localStorage.getItem('Apt'))
@@ -21,9 +23,33 @@ function Appointment(props) {
             localStorage.setItem('Apt',JSON.stringify(localdata))
         }
         history.push("/list")
-        console.log(data);
    }
+    useEffect( () => {
+        let localdata = JSON.parse(localStorage.getItem('Apt'))
 
+        if(props.location.state && localdata !== null){
+            const fdata = localdata.filter((l) => l.id === props.location.state.id);
+            formikobj.setValues(fdata[0])
+            setUpdate(true)
+        }
+        
+   },[]);
+
+   const updatedata = (values) => {
+    let localdata = JSON.parse(localStorage.getItem('Apt'));
+        let newdata = localdata.map((m) => {
+            if(m.id === values.id){
+                return values
+            }else{
+                return m;
+            }
+        })
+         
+        localStorage.setItem('Apt', JSON.stringify(newdata));
+        formikobj.resetForm()
+        setUpdate(false)
+        history.replace('/list')
+   }
 
     let schema = yup.object().shape({
         name: yup.string().required("required"),
@@ -34,6 +60,11 @@ function Appointment(props) {
         message: yup.string().required("required")
 
     });
+    const resetform = () => {
+        formikobj.resetForm()
+        setUpdate(false)
+        history.replace()
+    }
     const formikobj = useFormik({
         initialValues: {
             name: '',
@@ -45,7 +76,11 @@ function Appointment(props) {
         },
         validationSchema: schema,
         onSubmit: (values, action) => {
+            if(update){
+                updatedata(values)
+            }else{
             DataInsert(values)
+            }
             action.resetForm()
             
         },
@@ -63,12 +98,12 @@ function Appointment(props) {
                     </div>
                     <div className='row'>
                         <div className='col-6 text-center'>
-                            <NavLink to="/appointment">
-                                <h2>Appointment</h2></NavLink>
+                            <NavLink to="/appointment" onClick={() => resetform()}>
+                                <h2 className='btn btn-primary' style={{backgroundColor:'#ff6337', borderColor:'#ff6337', padding:'10px 60px', fontSize:'30px'}}>Appointment</h2></NavLink>
                         </div>
                         <div className='col-6 text-center'>
                         <NavLink to="/list">
-                            <h3>List</h3></NavLink>
+                            <h3 className='btn btn-primary' style={{backgroundColor:'#ff6337', borderColor:'#ff6337', padding:'10px 60px', fontSize:'30px'}}>List</h3></NavLink>
                         </div>
                     </div>
                     <Formik values={formikobj}>
@@ -164,7 +199,14 @@ function Appointment(props) {
                                 <div className="error-message" />
                                 <div className="sent-message">Your appointment request has been sent successfully. Thank you!</div>
                             </div>
-                            <div className="text-center"><button type="submit">Make an Appointment</button></div>
+                            <div className="text-center">
+                                {
+                                    update ? 
+                                <button type="submit">Update an Appointment</button>
+                                    :
+                                <button type="submit">Make an Appointment</button>
+                                }
+                                </div>
                         </Form>
                     </Formik>
                 </div>
