@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import * as yup from 'yup';
 import { useFormik, Formik, Form } from 'formik';
+import { Logindatatrue } from '../utilits/Utilit';
 
 function Login(props) {
   const [login, setLogin] = useState("Login")
@@ -37,6 +38,12 @@ function Login(props) {
       email: ''
     }
   }
+   const Logindatatrue = () => {
+    localStorage.setItem('data', 1234)
+}
+  const Login = () => {
+
+  }
 
   let schema = yup.object().shape(schemaobj);
 
@@ -46,8 +53,10 @@ function Login(props) {
 
     enableReinitialize: true,
     onSubmit: (values, action) => {
-      alert(JSON.stringify(values, null, 2));
       action.resetForm()
+      if(login === 'Login'){
+        Logindatatrue()
+      }
     },
   });
 
