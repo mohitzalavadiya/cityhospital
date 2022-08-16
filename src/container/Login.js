@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import * as yup from 'yup';
 import { useFormik, Formik, Form } from 'formik';
+import { useDispatch } from 'react-redux';
+import { signinAction } from '../redux/action/Action';
 
 function Login(props) {
   const [login, setLogin] = useState("Login")
 
   const [reset, setReset] = useState(false)
+  const dispatch = useDispatch()
 
   let schemaobj, intival;
 
@@ -48,6 +51,8 @@ function Login(props) {
     onSubmit: (values, action) => {
       alert(JSON.stringify(values, null, 2));
       action.resetForm()
+      dispatch(signinAction(values))
+
     },
   });
 
