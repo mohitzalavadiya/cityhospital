@@ -49,7 +49,7 @@ function Login(props) {
 
     enableReinitialize: true,
     onSubmit: (values, action) => {
-      alert(JSON.stringify(values, null, 2));
+      // alert(JSON.stringify(values, null, 2));
       action.resetForm()
       dispatch(signinAction(values))
 

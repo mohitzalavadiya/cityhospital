@@ -1,4 +1,5 @@
 import { Route, Switch } from "react-router-dom";
+import {Provider} from 'react-redux'
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import List from "./components/list/List";
@@ -12,10 +13,13 @@ import List_Apt from "./container/departments/List_Apt";
 import Home from "./container/home/Home";
 import Login from "./container/Login";
 import Medicine from "./container/medicine/Medicine";
+import { store } from "./redux/store";
 
 function App() {
   return (  
     <>
+    
+    <Provider store={store}>
     <Header/>
     
     <Switch>
@@ -32,6 +36,7 @@ function App() {
     </Switch>
 
     <Footer/>
+    </Provider>
     </>
     
 
