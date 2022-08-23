@@ -12,13 +12,13 @@ function* SignUp(action) {
    }
 }
 
-function* Watch() {
+function* WatchSignup() {
   yield takeEvery( AT.SIGN_UP, SignUp);
 }
 
 export function* AllWatch() {
    yield all([
-      Watch()
+      WatchSignup()
    ])
 }
 
