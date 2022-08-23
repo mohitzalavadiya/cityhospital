@@ -12,10 +12,12 @@ import List_Apt from "./container/departments/List_Apt";
 import Home from "./container/home/Home";
 import Login from "./container/Login";
 import Medicine from "./container/medicine/Medicine";
+import { ThemeProvider } from "./context/ThemeContext";
 
 function App() {
   return (  
     <>
+    <ThemeProvider>
     <Header/>
     
     <Switch>
@@ -32,6 +34,7 @@ function App() {
     </Switch>
 
     <Footer/>
+    </ThemeProvider>
     </>
     
 
