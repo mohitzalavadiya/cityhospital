@@ -1,7 +1,7 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, sendEmailVerification } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 
-export const AuthApi = (data) => {
+export const AuthApiSignup = (data) => {
     console.log("AuthApi", data);
 
     return new Promise((resolve, reject) => {
@@ -13,11 +13,11 @@ export const AuthApi = (data) => {
             onAuthStateChanged(auth, (user) => {
                 if (user) {
                 
-                  const uid = user.uid;
+                  
                   sendEmailVerification(auth.currentUser)
                   .then(() => {
                   
-                    console.log("Email verification sent!");
+                    resolve("Email verification sent!");
                   });
                 } else {
                  
@@ -28,8 +28,34 @@ export const AuthApi = (data) => {
             const errorCode = error.code;
             const errorMessage = error.message;
             if (errorCode.localeCompare("auth/email-already-in-use") === 0) {
-                console.log('email is already register');
+               reject('email is already register');
             }
           });
       });
+}
+
+export const AuthApiLogin = (data) => {
+  console.log("Login", data);
+
+  return new Promise( (resolve, reject) => {
+    signInWithEmailAndPassword(auth, data.email, data.password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      if (!user.emailVerified) {
+        reject("Please verify your email");
+      } else {
+        resolve("Login Successfully");
+      }
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+
+      if (errorCode.localeCompare("auth/wrong-password") === 0 || errorCode.localeCompare("auth/user-not-found") === 0) {
+        reject("password or Email is Incorrect");
+      } else{
+        reject("invalid")
+      }
+    });
+  })
 }
