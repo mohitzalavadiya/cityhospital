@@ -14,14 +14,14 @@ import Home from "./container/home/Home";
 import Login from "./container/Login";
 import Medicine from "./container/medicine/Medicine";
 import { store } from "./redux/store";
+import { SnackbarProvider } from 'notistack';
 
 function App() {
   return (  
     <>
-    
+    <SnackbarProvider maxSnack={3}>
     <Provider store={store}>
-    <Header/>
-    
+    <Header/>    
     <Switch>
       <Route path="/" exact component={Home}/>
       <Route path="/departments" exact component={Departments} />
@@ -34,9 +34,9 @@ function App() {
       <Route path="/appointment" exact component={Appointment}/>
       <Route path="/list" exact component={List_Apt}/>
     </Switch>
-
     <Footer/>
     </Provider>
+    </SnackbarProvider>
     </>
     
 

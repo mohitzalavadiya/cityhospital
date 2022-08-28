@@ -6,21 +6,23 @@ import * as AT from '../ActionType'
 function* SignUp(action) {
    try {
       const user = yield call(AuthApiSignup, action.payload);
-      // yield put({type: AT.SIGN_UP, user: action.payload});
-      console.log(user);
+      yield put({type: AT.SET_ALERT, payload: { text: user, color: "success"}});
+      // console.log(user);
    } catch (e) {
-      // yield put({type: "USER_FETCH_FAILED", message: e.message});
-      console.log(e);
+      yield put({type: AT.SET_ALERT, payload: { text : e, color: "error"}})
+      // console.log(e);
    }
 }
 
 function* Login(action) {
    try{
       const user = yield call(AuthApiLogin, action.payload)
-      console.log(user);
+      yield put({type: AT.SET_ALERT, payload: { text : user, color: "success"}})
+      // console.log(user);
 
    } catch(e) {
-      console.log(e);
+      yield put({type: AT.SET_ALERT, payload: { text : e, color: "error"}})
+      // console.log(e);
 
    }
 }
