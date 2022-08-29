@@ -1,3 +1,5 @@
+import * as AT from '../ActionType'
+
 const initVal = {
     isLoading : false,
     user : null,
@@ -5,7 +7,14 @@ const initVal = {
 }
 
 export const SignupReducer = (state = initVal, action) => {
-    switch(action.type){
+    switch (action.type) {
+        case AT.LOGIN_UP:
+          return {
+            ...state,
+            data: action.payload,
+            isLoading: false,
+            error : ''
+          };
         default : 
         return state
     }

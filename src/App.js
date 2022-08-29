@@ -13,14 +13,16 @@ import List_Apt from "./container/departments/List_Apt";
 import Home from "./container/home/Home";
 import Login from "./container/Login";
 import Medicine from "./container/medicine/Medicine";
-import { store } from "./redux/store";
+import { persistor, store } from "./redux/store";
 import { SnackbarProvider } from 'notistack';
+import { PersistGate } from "redux-persist/integration/react";
 
 function App() {
   return (  
     <>
     <SnackbarProvider maxSnack={3}>
     <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
     <Header/>    
     <Switch>
       <Route path="/" exact component={Home}/>
@@ -35,6 +37,7 @@ function App() {
       <Route path="/list" exact component={List_Apt}/>
     </Switch>
     <Footer/>
+    </PersistGate>
     </Provider>
     </SnackbarProvider>
     </>

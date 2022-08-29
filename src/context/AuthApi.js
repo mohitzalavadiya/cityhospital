@@ -1,5 +1,6 @@
 import { createUserWithEmailAndPassword, onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
+import { history } from "../History";
 
 export const AuthApiSignup = (data) => {
     console.log("AuthApi", data);
@@ -44,7 +45,8 @@ export const AuthApiLogin = (data) => {
       if (!user.emailVerified) {
         reject("Please verify your email");
       } else {
-        resolve("Login Successfully");
+        resolve(user);
+        history("/")
       }
     })
     .catch((error) => {

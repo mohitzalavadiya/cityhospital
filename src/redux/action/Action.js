@@ -8,3 +8,6 @@ export const signupAction = (values) => (dispatch) => {
 export const loginAction = (values) => (dispatch) => {
     dispatch( {type : AT.LOGIN_UP, payload : values})
 }
+export const SignedOut = (values) => (dispatch) => {
+    dispatch({ type : AT.SIGNED_OUT, payload : values})
+}

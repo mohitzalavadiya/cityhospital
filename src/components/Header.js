@@ -1,8 +1,18 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { auth } from '../firebase';
+import { SignedOut } from '../redux/action/Action';
 import Alert from './alert/Alert';
 
 function Header(props) {
+
+    const auth = useSelector(state => state.auth)
+    const dispatch = useDispatch()
+    const HandleLgOut = () => {
+        dispatch(SignedOut())
+    }
+    
     return (
         <div>
             <div>
@@ -58,9 +68,19 @@ function Header(props) {
                         </nav>
                         <NavLink className="appointment-btn scrollto" to="/appointment"><span className="d-none d-md-inline">Make an</span>
                             Appointment</NavLink>
-                        <NavLink to="/login" className="appointment-btn scrollto">
-                            <span className="d-none d-md-inline">Login/ Signup</span>
+
+                            {
+                                auth.data === null ? 
+
+                                <NavLink to="/login" className="appointment-btn scrollto">
+                                <span className="d-none d-md-inline">Login/ Signup</span>
+                            </NavLink>
+                            :
+                            <NavLink to="/login" className="appointment-btn scrollto">
+                            <span className="d-none d-md-inline" onClick={HandleLgOut}>Loout</span>
                         </NavLink>
+                            }
+                       
                         <Alert/>
                     </div>
                 </header>
