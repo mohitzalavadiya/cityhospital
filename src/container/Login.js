@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as yup from 'yup';
 import { useFormik, Formik, Form } from 'formik';
 import { useDispatch } from 'react-redux';
-import { loginAction, signinAction, signupAction } from '../redux/action/Action';
+import { googleSighUpAction, loginAction, resetPasswordAction, signinAction, signupAction } from '../redux/action/Action';
 
 function Login(props) {
   const [login, setLogin] = useState("Login")
@@ -32,7 +32,7 @@ function Login(props) {
       email: '',
       password: ''
     }
-  }else{
+  } else {
     schemaobj = {
       email: yup.string().required("required").email("please enter valid email id")
     }
@@ -50,17 +50,21 @@ function Login(props) {
     enableReinitialize: true,
     onSubmit: (values, action) => {
       // alert(JSON.stringify(values, null, 2));
-      if(login === "Login"){
+      if (login === "Login") {
         dispatch(loginAction(values))
-      }else{
+      } else if (login === "signup") {
         dispatch(signupAction(values))
-        
-      }  
-      action.resetForm()  
+      } else {
+        dispatch(resetPasswordAction(values))
+      }
+      action.resetForm()
 
     },
   });
 
+  const handelGoogleSignin = () => {
+    dispatch(googleSighUpAction());
+  };
   const handleSubmitData = () => {
     console.log(values);
     formikobj.resetForm()
@@ -101,7 +105,7 @@ function Login(props) {
                   <div className="row">
                     <div className="col-md-4 form-group">
                       <input type="text" name="name" className="form-control" id="name" placeholder="Your Name" onChange={handleChange} onBlur={handleBlur} value={values.name} />
-                      <p className='text-danger'>{errors.name && touched.name ? errors.name : ''}</p>  
+                      <p className='text-danger'>{errors.name && touched.name ? errors.name : ''}</p>
                     </div>
                   </div>
             }
@@ -149,7 +153,19 @@ function Login(props) {
                   <div className="text-center"><button type="submit">Signup</button></div>
             }
 
-
+            <div className="signin-btns">
+              <a href="#"
+                className="signin-btn"
+                onClick={handelGoogleSignin}>
+                <i className="bi bi-google"></i>Google</a>
+              {/* <a
+                href="#"
+                className="signin-btn"
+                onClick={handleFacebookSignin}
+              >
+                <i className="bx bxl-facebook" />
+              </a> */}
+            </div>
 
           </Form>
         </Formik>

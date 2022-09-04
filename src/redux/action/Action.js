@@ -11,3 +11,9 @@ export const loginAction = (values) => (dispatch) => {
 export const SignedOut = (values) => (dispatch) => {
     dispatch({ type : AT.SIGNED_OUT, payload : values})
 }
+export const resetPasswordAction = (mail) => (dispatch) => {
+    dispatch({type: AT.PASSWOED_RESET, payload:mail})
+}
+export const googleSighUpAction = () => (dispatch) => {
+    dispatch({type: AT.GOOGLE_SIGN_UP})
+}

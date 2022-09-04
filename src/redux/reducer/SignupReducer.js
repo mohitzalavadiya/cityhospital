@@ -11,10 +11,17 @@ export const SignupReducer = (state = initVal, action) => {
         case AT.LOGIN_UP:
           return {
             ...state,
-            data: action.payload,
+            user: action.payload,
             isLoading: false,
             error : ''
           };
+          case AT.SIGNED_OUT : 
+            return {
+              ...state,
+              user: null,
+              error: false,
+              isLoading: false,
+            };
         default : 
         return state
     }
